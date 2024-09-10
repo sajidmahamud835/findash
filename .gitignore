@@ -13,6 +13,8 @@ lerna-debug.log*
 # Environment Variables
 .env
 .env.*.local
+.env.local
+
 
 # Drizzle ORM files
 /drizzle
