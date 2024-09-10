@@ -11,6 +11,11 @@ Findash is a comprehensive financial dashboard that helps users track, analyze, 
 - [Running the Project](#running-the-project)
   - [Using Bun](#using-bun)
   - [Using Node.js with TSX](#using-nodejs-with-tsx)
+- [Deployment](#deployment)
+  - [Vercel](#vercel)
+  - [Netlify](#netlify)
+  - [Render](#render)
+  - [Railway](#railway)
 - [Scripts](#scripts)
 - [License](#license)
 
@@ -146,12 +151,80 @@ If you're using **Node.js** and want to execute TypeScript files, **TSX** is a g
      npm run db:seed
      ```
 
+## Deployment
+
+### Vercel
+
+1. Install the Vercel CLI if you haven't already:
+   ```bash
+   npm install -g vercel
+   ```
+
+2. Deploy your project:
+   ```bash
+   vercel
+   ```
+
+3. Follow the prompts to link or create a new project.
+
+4. Set up environment variables on Vercel's dashboard under **"Settings"**.
+
+### Netlify
+
+1. Install the Netlify CLI if you haven't already:
+   ```bash
+   npm install -g netlify-cli
+   ```
+
+2. Deploy your project:
+   ```bash
+   netlify deploy
+   ```
+
+3. Follow the prompts to link or create a new site.
+
+4. Set up environment variables on Netlify's dashboard under **"Site settings" > "Build & deploy" > "Environment"**.
+
+### Render
+
+1. Install the Render CLI if you haven't already:
+   ```bash
+   npm install -g render-cli
+   ```
+
+2. Deploy your project:
+   ```bash
+   render deploy
+   ```
+
+3. Follow the prompts to link or create a new web service.
+
+4. Set up environment variables on Render's dashboard under **"Environment"**.
+
+### Railway
+
+1. Install the Railway CLI if you haven't already:
+   ```bash
+   npm install -g railway
+   ```
+
+2. Deploy your project:
+   ```bash
+   railway up
+   ```
+
+3. Follow the prompts to link or create a new project.
+
+4. Set up environment variables on Railway's dashboard under **"Settings"**.
+
 ## Scripts
 
 - `npm run dev` or `bun run dev`: Starts the development server.
 - `npm run build` or `bun run build`: Builds the app for production.
 - `npm run start` or `bun run start`: Starts the production server.
 - `npm run lint` or `bun run lint`: Runs ESLint for code quality checks.
+-
+
 - `npm run format` or `bun run format`: Formats code using Prettier.
 - `npm run db:generate` or `bun run db:generate`: Generates Drizzle ORM schema from PostgreSQL.
 - `npm run db:migrate` or `bun run db:migrate`: Runs database migrations.
