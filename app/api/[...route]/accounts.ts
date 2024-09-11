@@ -17,7 +17,6 @@ const app = new Hono()
       throw new HTTPException(401, {
         res: c.json({ error: "Unauthorized" }, 401),
       });
-      // return c.json({ error: "Unauthorized" }, 401);
     }
 
     const data = await db

@@ -1,11 +1,13 @@
 import { z } from "zod";
 import { createInsertSchema } from "drizzle-zod";
-import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
+//accounts
 export const accounts = pgTable("accounts", {
   id: text("id").primaryKey(),
   plaid: text("play_id"),
+  walletId: text("wallet_id"),
   name: text("name").notNull(),
   userId: text("user_id").notNull(),
 });
@@ -16,6 +18,7 @@ export const accountsRelations = relations(accounts, ({ many }) => ({
 
 export const insertAccountSchema = createInsertSchema(accounts);
 
+//categories
 export const categories = pgTable("categories", {
   id: text("id").primaryKey(),
   plaid: text("play_id"),
@@ -29,6 +32,21 @@ export const categoriesRelations = relations(categories, ({ many }) => ({
 
 export const insertCategorySchema = createInsertSchema(categories);
 
+//web3 wallet 
+export const wallets = pgTable("wallets", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: text("user_id").notNull(),
+  walletAddress: text("wallet_address").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const walletsRelations = relations(wallets, ({ many }) => ({
+  transactions: many(transactions),
+}));
+
+export const insertWalletSchema = createInsertSchema(wallets);
+
+//transactions
 export const transactions = pgTable("transactions", {
   id: text("id").primaryKey(),
   amount: integer("amount").notNull(),
@@ -43,6 +61,9 @@ export const transactions = pgTable("transactions", {
   categoryId: text("category_id").references(() => categories.id, {
     onDelete: "set null",
   }),
+  walletId: text("wallet_id").references(() => wallets.id, {
+    onDelete: "cascade",
+  })
 });
 
 export const transactionsRelations = relations(transactions, ({ one }) => ({
@@ -53,6 +74,10 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
   category: one(categories, {
     fields: [transactions.categoryId],
     references: [categories.id],
+  }),
+  wallet: one(wallets, {
+    fields: [transactions.walletId],
+    references: [wallets.id],
   }),
 }));
 
