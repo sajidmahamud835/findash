@@ -65,9 +65,10 @@ const generateTransactionsForDay = (day: Date) => {
       accountId: SEED_ACCOUNTS[0].id, // first account for simplicity
       categoryId: category.id,
       date: day,
-      amount: formattedAmount,
-      payee: "Merchant",
-      notes: "Random transcation",
+      amount: generateRandomAmount(category),
+      payee: "Random Payee",
+      notes: "Random Notes",
+      walletId: null, // or set it to a default wallet ID
     });
   }
 };
