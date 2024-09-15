@@ -62,13 +62,12 @@ const generateTransactionsForDay = (day: Date) => {
 
     SEED_TRANSACTIONS.push({
       id: `transaction_${format(day, "yyyy-MM-dd")}_${i}`,
-      accountId: SEED_ACCOUNTS[0].id, // first account for simplicity
+      accountId: SEED_ACCOUNTS[0].id,
       categoryId: category.id,
       date: day,
       amount: generateRandomAmount(category),
       payee: "Random Payee",
       notes: "Random Notes",
-      walletId: null, // or set it to a default wallet ID
     });
   }
 };
