@@ -34,7 +34,10 @@ export const insertCategorySchema = createInsertSchema(categories);
 
 //web3 wallet 
 export const wallets = pgTable("wallets", {
-  id: uuid("id").defaultRandom().primaryKey(),
+  id: text("id").primaryKey(),
+  accountId: text("account_id").references(() => accounts.id, {
+    onDelete: "cascade",
+  }),
   userId: text("user_id").notNull(),
   walletAddress: text("wallet_address").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
@@ -60,9 +63,6 @@ export const transactions = pgTable("transactions", {
     .notNull(),
   categoryId: text("category_id").references(() => categories.id, {
     onDelete: "set null",
-  }),
-  walletId: text("wallet_id").references(() => wallets.id, {
-    onDelete: "cascade",
   })
 });
 
@@ -74,10 +74,6 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
   category: one(categories, {
     fields: [transactions.categoryId],
     references: [categories.id],
-  }),
-  wallet: one(wallets, {
-    fields: [transactions.walletId],
-    references: [wallets.id],
   }),
 }));
 
